@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de citas</title>
+    <link rel="stylesheet" href="estilo.css"/>
+</head>
+<body>
+    <h1>REGISTRA TUS DATOS PARA GENERAR TU CITA</h1>
+    <form id="formulario">
+       <label>Nombre:</label>
+       <input type="text" name="nombre"  id="nombre">
+       <br>
+       <br>
+       <label>Numero telefonico:</label>
+       <input type="tel" name="telefono" id="telefono">
+       <br>
+       <br>
+       <label>Tipo de servicio:</label>
+       <select  name="servicio"   id="servicio" >
+        <option>Maquillaje</option>
+        <option>Pelo</option>
+        <option>Manicure</option>
+        <option>Paticure</option>
+        <option>Pestañas y cejas</option>
+       </select>
+       
+       <br>
+       <br>
+     <button type="submit">Crear</button>
+    </form>
+
+
+    <div id="ultima-cita">
+        <h3>Última cita registrada:</h3><br>
+    </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const formulario = document.getElementById('formulario');
+    const ultimaCitaDiv = document.getElementById('ultima-cita');
+    formulario.addEventListener('submit', function(event) {
+        event.preventDefault(); 
+        // Obtener los datos
+        const nombre = document.getElementById('nombre').value;
+        const telefono = document.getElementById('telefono').value;
+        const servicio = document.getElementById('servicio').value;
+
+        if (!nombre || !telefono || !servicio) {
+            alert('Por favor llena todos los campos.');
+            return;
+        }
+
+        
+        const hora = Math.floor(Math.random() * (18 - 8 + 1)) + 8;
+        const minutos = String(Math.floor(Math.random() * 60)).padStart(2, '0');
+        const formato = hora >= 12 ? "PM" : "AM";
+        const horaMostrar = (hora > 12 ? hora - 12 : hora) + ":" + minutos + " " + formato;
+
+        
+        alert(
+            `¡Cita generada!\n\n` +
+           ` Nombre: ${nombre}\n` +
+            `Teléfono: ${telefono}\n` +
+            `Servicio: ${servicio}\n `+
+            `Hora de la cita: ${horaMostrar}`
+        );
+        ultimaCitaDiv.innerHTML = `
+            <strong>Última cita registrada:</strong><br><br>
+            <strong>Nombre:</strong> ${nombre}<br>
+            <strong>Teléfono:</strong> ${telefono}<br>
+            <strong>Servicio:</strong> ${servicio}<br>
+            <strong>Hora:</strong> ${horaMostrar}
+        `;
+    
+    });
+});
+</script>
+
+
+
+</body>
+</html>
